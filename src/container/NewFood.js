@@ -38,7 +38,7 @@ const styles = theme => ({
     },
 });
 
-class Food extends Component {
+class NewFood extends Component {
 
     constructor() {
         super()
@@ -46,13 +46,14 @@ class Food extends Component {
             productions: {},
             dialog: false,
             name: '',
+            date: '',
             num: '',
             price: ''
         }
     }
 
     _getApi = () => {
-        fetch(`${apiUrl}/${aa}/id/${now}/stock.json`)
+        fetch(`${apiUrl}/${aa}/id/${now}/aheadStock.json`)
             .then(res => {
                 if (res.status !== 200) {
                     throw new Error(res.statusText)
@@ -67,7 +68,7 @@ class Food extends Component {
     }
 
     _post(word) {
-        return fetch(`${apiUrl}/user/id/${now}/stock.json`, {
+        return fetch(`${apiUrl}/user/id/${now}/aheadStock.json`, {
             method: 'POST',
             body: JSON.stringify(word)
         }).then(res => {
@@ -83,7 +84,7 @@ class Food extends Component {
     }
 
     _delete(id) {
-        return fetch(`${apiUrl}/user/id/${now}/stock/${id}.json`, {
+        return fetch(`${apiUrl}/user/id/${now}/aheadStock/${id}.json`, {
             method: 'DELETE'
         }).then(res => {
             if (res.status != 200) {
@@ -113,13 +114,14 @@ class Food extends Component {
 
     handleSubmit = () => {
         const name = {
-            stockName: this.state.name,
-            stockNum: this.state.num,
-            stockPrice: this.state.price
+            aheadStockName: this.state.name,
+            aheadStockDate: this.state.date,
+            aheadStockNum: this.state.num,
+            aheadStockPrice: this.state.price
 
         }
         this.handleDialogToggle();
-        if (!name.name && !name.num && !name.price) {
+        if (!name.name && !name.date && !name.num && !name.price) {
             return;
         }
         this._post(name);
@@ -134,6 +136,7 @@ class Food extends Component {
             <div>
                 <Header />
                 <Gnb />
+                <Footer />
                 {
                     Object.keys(this.state.productions).map(id => {
                         const product = this.state.productions[id]
@@ -142,13 +145,14 @@ class Food extends Component {
                                 <Card>
                                     <CardContent>
                                         <Typography color="textSecondary" gutterBottom>
-                                                갯수: {product.stockNum}
-                                                &nbsp;가격: {product.stockPrice}
+                                            날짜 : {product.aheadStockDate}
+                                            &nbsp;갯수 : {product.aheadStockNum}
+                                            &nbsp;가격 : {product.aheadStockPrice}
                                         </Typography>
                                         <Grid container>
                                             <Grid item xs={6}>
                                                 <Typography variant="h5" component="h2">
-                                                    {product.stockName}
+                                                    {product.aheadStockName}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={6}>
@@ -161,22 +165,23 @@ class Food extends Component {
                             </div>
                         );
                     })}
+
                 <Dialog open={this.state.dialog} onClose={this.handleDialogToggle}>
                     <DialogTitle>단어 추가</DialogTitle>
                     <DialogContent>
-                        <TextField label="이름" type="text" name="name" value={this.state.stockName} onChange={this.handleValueChange} /><br />
-                        <TextField label="갯수" type="number" name="num" value={this.state.stockNum} onChange={this.handleValueChange} /><br />
-                        <TextField label="가격" type="number" name="price" value={this.state.stockPrice} onChange={this.handleValueChange} /><br />
+                        <TextField label="이름" type="text" name="name" value={this.state.aheadStockName} onChange={this.handleValueChange} /><br />
+                        <TextField label="날짜" type="number" name="date" value={this.state.aheadStockDate} onChange={this.handleValueChange} /><br />
+                        <TextField label="갯수" type="number" name="num" value={this.state.aheadStockNum} onChange={this.handleValueChange} /><br />
+                        <TextField label="가격" type="number" name="price" value={this.state.aheadStockPrice} onChange={this.handleValueChange} /><br />
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleSubmit}>추가</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleDialogToggle}>닫기</Button>
                     </DialogActions>
                 </Dialog>
-                <Footer />
             </div>
         );
     }
 }
 
-export default Food;
+export default NewFood;

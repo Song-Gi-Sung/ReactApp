@@ -21,10 +21,11 @@ address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
 .show {display:block}
 .hide {display:none}
 
+.lgn {padding:10px 0;font-size:20px;text-align:center;}
 .header {padding:10px 0;font-size:20px;background-color:#3d414c;text-align:center;color:#fff}
-.footer {padding:10px 0;border-top:1px solid #d9d9d9;font-size:11px;font-size:12px;background-color:#f1f1f1;text-align:center;color:#888}
+.footer {position:absolute;width:100%;bottom:0;padding:10px 0;border-top:1px solid #d9d9d9;font-size:11px;font-size:12px;background-color:#f1f1f1;text-align:center;color:#888}
 .gnb {overflow:hidden;background-color:#be3f2f}
-.gnb li {float:left;width:33.3%}
-.gnb li:nth-child(2) {width:33.4%}
+.gnb li {float:left;width:25%}
+.gnb li:nth-child(2) {width:25%}
 .gnb .tab_menu {display:block;padding:6px 0;text-align:center;color:#fff}
-.gnb .tab_menu.on {background-color:#8e2f23}
+.pd {text-align:center;font-size:40px;padding-top:20px;color:purple;}
